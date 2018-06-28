@@ -1,0 +1,25 @@
+server:
+  port: ${PORT:8081}
+
+treinamento:
+  curso: Workshop Microservices
+  carga:
+    horaria: 80 horas
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+#logging:
+#  level: debug
+
+---
+spring:
+  profiles: dev
+
+treinamento:
+  curso: Treinamento de Micro-serviços
+  carga:
+    horaria: 40 horas
