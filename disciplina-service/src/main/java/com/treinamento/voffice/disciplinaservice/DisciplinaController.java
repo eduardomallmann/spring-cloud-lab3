@@ -18,9 +18,7 @@ import java.util.List;
 public class DisciplinaController {
 
     @Autowired
-    private DiscoveryClient discoveryClient;
-
-    private RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate;
 
     @GetMapping
     public ResponseEntity<DisciplinaDTO> getDisciplina() {
@@ -36,12 +34,7 @@ public class DisciplinaController {
 
     private List<String> getAlunos() {
 
-        List<ServiceInstance> instances =
-                this.discoveryClient.getInstances("aluno-service");
-        ServiceInstance firstOne = instances.get(0);
-
-        ResponseEntity<JsonNode> alunos = restTemplate.getForEntity("http://" + firstOne.getHost() + ":" +
-                firstOne.getPort() + "/aluno", JsonNode.class);
+        ResponseEntity<JsonNode> alunos = restTemplate.getForEntity("http://aluno-service/aluno", JsonNode.class);
 
         return alunos.getBody().findValuesAsText("nome");
     }
